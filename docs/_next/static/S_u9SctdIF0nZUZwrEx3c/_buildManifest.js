@@ -3,7 +3,7 @@ self.__BUILD_MANIFEST = {
     "afterFiles": [],
     "beforeFiles": [
       {
-        "source": "/shooter-speed-calc//_next/:path+",
+        "source": "/shooter-speed-calc/_next/:path+",
         "destination": "/_next/:path+"
       }
     ],
