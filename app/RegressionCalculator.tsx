@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Scatter, ScatterChart, ResponsiveContainer } from 'recharts';
 
@@ -12,9 +14,14 @@ const RegressionCalculator = () => {
   const [xValue, setXValue] = useState('');
   const [predictedY, setPredictedY] = useState(null);
 
-  const updatePoint = (index: number, field: 'x' | 'y', value: string) => {
+  const updatePoint = (index: number, field: string, value:string) => {
     const newPoints = [...originalPoints];
-    newPoints[index][field] = parseFloat(value) || 0;
+    if (field == 'x') {
+      newPoints[index]['x'] = parseFloat(value) || 0;
+    } else if (field == 'y') {
+      newPoints[index]['y'] = parseFloat(value) || 0;
+    }
+    
     setOriginalPoints(newPoints);
   };
 
@@ -50,7 +57,7 @@ const RegressionCalculator = () => {
       [sumX3, sumX2, sumX],
       [sumX2, sumX, n]
     ];
-    
+   
     const results = [sumX2Y, sumXY, sumY];
 
     // Gaussian elimination
@@ -119,13 +126,13 @@ const RegressionCalculator = () => {
     const yMean = originalPoints.reduce((sum, p) => sum + p.y, 0) / originalPoints.length;
     let ssRes = 0;
     let ssTot = 0;
-    
+   
     originalPoints.forEach(point => {
       const predicted = a * point.x * point.x + b * point.x + c;
       ssRes += (point.y - predicted) ** 2;
       ssTot += (point.y - yMean) ** 2;
     });
-    
+   
     return (1 - ssRes / ssTot);
   };
 
