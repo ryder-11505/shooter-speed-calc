@@ -132,120 +132,122 @@ const RegressionCalculator = () => {
   const r2 = calculateR2();
 
   return (
-    <div className="p-6 max-w-4xl mx-auto bg-gray-200 min-h-screen">
-      <h1 className="text-3xl font-bold mb-2">Shooter Speed Calculator for Robotics</h1>
-      <p className="text-gray-700 mb-6">
-        Enter points with the X value being the horizontal distance from the target and the Y value being the speed you need to run your motor at to reach the target. Please enter four points. Optimised for FIRST Tech Challenge, Decode season 2025-26.
-      </p>
-      
-      <div className="bg-gray-50 border border-gray-300 rounded p-4 mb-6">
-        <div className="flex justify-between items-center mb-3">
-          <h3 className="font-semibold">Your Data Points:</h3>
-          <button
-            onClick={addPoint}
-            className="bg-pink-600 text-white px-3 py-1 rounded text-sm hover:bg-pink-700"
-          >
-            + Add Point
-          </button>
-        </div>
-        <div className="space-y-2">
-          {originalPoints.map((point, index) => (
-            <div key={index} className="flex gap-3 items-center">
-              <span className="text-sm w-8">({index + 1})</span>
-              <input
-                type="number"
-                value={point.x}
-                onChange={(e) => updatePoint(index, 'x', e.target.value)}
-                className="border rounded px-3 py-1 w-24"
-                placeholder="x"
-              />
-              <input
-                type="number"
-                value={point.y}
-                onChange={(e) => updatePoint(index, 'y', e.target.value)}
-                className="border rounded px-3 py-1 w-24"
-                placeholder="y"
-              />
-              {originalPoints.length > 3 && (
-                <button
-                  onClick={() => removePoint(index)}
-                  className="bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600"
-                >
-                  Remove
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-      </div>
-      
-      <div className="bg-pink-50 border border-pink-300 rounded p-4 mb-6">
-        <h2 className="font-semibold text-lg mb-2">Best-Fit Quadratic Equation:</h2>
-        <p className="text-xl font-mono mb-2">
-          y = {a.toFixed(4)}x² + {b.toFixed(4)}x + {c.toFixed(2)}
+    <div className="bg-gray-200 min-h-screen">
+      <div className="p-6 max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-2">Shooter Speed Calculator for Robotics</h1>
+        <p className="text-gray-700 mb-6">
+          Enter points with the X value being the horizontal distance from the target and the Y value being the speed you need to run your motor at to reach the target. Please enter four points. Optimised for FIRST Tech Challenge, Decode season 2025-26.
         </p>
-        <p className="text-sm text-gray-600">R² = {r2.toFixed(4)} (goodness of fit)</p>
-      </div>
-
-      <div className="mb-6">
-        <h3 className="font-semibold mb-2">Verification with your original points:</h3>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          {originalPoints.map(point => {
-            const predicted = a * point.x * point.x + b * point.x + c;
-            const error = Math.abs(point.y - predicted);
-            return (
-              <div key={point.x} className="bg-gray-50 p-2 rounded">
-                <span className="font-mono">x={point.x}: </span>
-                <span>Actual={point.y}, Predicted={predicted.toFixed(1)}</span>
-                <span className="text-gray-500"> (error: {error.toFixed(1)})</span>
+      
+        <div className="bg-gray-50 border border-gray-300 rounded p-4 mb-6">
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-semibold">Your Data Points:</h3>
+            <button
+              onClick={addPoint}
+              className="bg-pink-600 text-white px-3 py-1 rounded text-sm hover:bg-pink-700"
+            >
+              + Add Point
+            </button>
+          </div>
+          <div className="space-y-2">
+            {originalPoints.map((point, index) => (
+              <div key={index} className="flex gap-3 items-center">
+                <span className="text-sm w-8">({index + 1})</span>
+                <input
+                  type="number"
+                  value={point.x}
+                  onChange={(e) => updatePoint(index, 'x', e.target.value)}
+                  className="border rounded px-3 py-1 w-24"
+                  placeholder="x"
+                />
+                <input
+                  type="number"
+                  value={point.y}
+                  onChange={(e) => updatePoint(index, 'y', e.target.value)}
+                  className="border rounded px-3 py-1 w-24"
+                  placeholder="y"
+                />
+                {originalPoints.length > 3 && (
+                  <button
+                    onClick={() => removePoint(index)}
+                    className="bg-red-500 text-white px-2 py-1 rounded text-sm hover:bg-red-600"
+                  >
+                    Remove
+                  </button>
+                )}
               </div>
-            );
-          })}
+            ))}
+          </div>
+        </div>
+        
+        <div className="bg-pink-50 border border-pink-300 rounded p-4 mb-6">
+          <h2 className="font-semibold text-lg mb-2">Best-Fit Quadratic Equation:</h2>
+          <p className="text-xl font-mono mb-2">
+            y = {a.toFixed(4)}x² + {b.toFixed(4)}x + {c.toFixed(2)}
+          </p>
+          <p className="text-sm text-gray-600">R² = {r2.toFixed(4)} (goodness of fit)</p>
+        </div>
+
+        <div className="mb-6">
+          <h3 className="font-semibold mb-2">Verification with your original points:</h3>
+          <div className="grid grid-cols-2 gap-2 text-sm">
+            {originalPoints.map(point => {
+              const predicted = a * point.x * point.x + b * point.x + c;
+              const error = Math.abs(point.y - predicted);
+              return (
+                <div key={point.x} className="bg-gray-50 p-2 rounded">
+                  <span className="font-mono">x={point.x}: </span>
+                  <span>Actual={point.y}, Predicted={predicted.toFixed(1)}</span>
+                  <span className="text-gray-500"> (error: {error.toFixed(1)})</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="mb-6">
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={chartData}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="x" label={{ value: 'X', position: 'insideBottom', offset: -5 }} />
+              <YAxis label={{ value: 'Y', angle: -90, position: 'insideLeft' }} />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="predicted" stroke="#ec4899" name="Predicted (quadratic)" strokeWidth={2} dot={false} />
+              <Line type="monotone" dataKey="actual" stroke="#ef4444" name="Actual data" strokeWidth={0} dot={{ r: 6 }} />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+
+        <div className="bg-pink-50 border border-pink-300 rounded p-4">
+          <h3 className="font-semibold mb-3">Predict Y for any X value:</h3>
+          <div className="flex gap-3 items-center">
+            <input
+              type="number"
+              value={xValue}
+              onChange={(e) => setXValue(e.target.value)}
+              placeholder="Enter x value"
+              className="border rounded px-3 py-2 w-40"
+            />
+            <button
+              onClick={handlePredict}
+              className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700"
+            >
+              Calculate Y
+            </button>
+            {predictedY && (
+              <span className="text-lg font-semibold">
+                y ≈ {predictedY}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="mt-8 pt-4 border-t border-gray-300 text-center text-sm text-gray-600">
+          <p>Created and shared by FTC Team 11505 The Flaming Galahs | Get in touch with us by email at S.Canfield@stpeters.qld.edu.au</p>
         </div>
       </div>
-
-      <div className="mb-6">
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="x" label={{ value: 'X', position: 'insideBottom', offset: -5 }} />
-            <YAxis label={{ value: 'Y', angle: -90, position: 'insideLeft' }} />
-            <Tooltip />
-            <Legend />
-            <Line type="monotone" dataKey="predicted" stroke="#ec4899" name="Predicted (quadratic)" strokeWidth={2} dot={false} />
-            <Line type="monotone" dataKey="actual" stroke="#ef4444" name="Actual data" strokeWidth={0} dot={{ r: 6 }} />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
-
-      <div className="bg-pink-50 border border-pink-300 rounded p-4">
-        <h3 className="font-semibold mb-3">Predict Y for any X value:</h3>
-        <div className="flex gap-3 items-center">
-          <input
-            type="number"
-            value={xValue}
-            onChange={(e) => setXValue(e.target.value)}
-            placeholder="Enter x value"
-            className="border rounded px-3 py-2 w-40"
-          />
-          <button
-            onClick={handlePredict}
-            className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700"
-          >
-            Calculate Y
-          </button>
-          {predictedY && (
-            <span className="text-lg font-semibold">
-              y ≈ {predictedY}
-            </span>
-          )}
-        </div>
-      </div>
-
-      <div className="mt-8 pt-4 border-t border-gray-300 text-center text-sm text-gray-600">
-        <p>Created and shared by FTC Team 11505 The Flaming Galahs | Get in touch with us by email at S.Canfield@stpeters.qld.edu.au</p>
-      </div>
-    </div>
+    </div>  
   );
 };
 
