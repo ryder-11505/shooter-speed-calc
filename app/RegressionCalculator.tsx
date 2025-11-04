@@ -136,7 +136,7 @@ const RegressionCalculator = () => {
   return (
     <div className="bg-gray-300 min-h-screen">
       <div className="p-6 max-w-4xl mx-auto">
-        <h1 className="text-3xl font-bold mb-2">Shooter Speed Calculator for Robotics</h1>
+        <h1 className="text-3xl font-bold mb-2">Launcher Speed Calculator for Robotics</h1>
         <p className="text-gray-700 mb-6">
           Enter points with the X value being the horizontal distance from the target and the Y value being the speed you need to run your motor at to reach the target. Please enter four points. Optimised for FIRST Tech Challenge, Decode season 2025-26.
         </p>

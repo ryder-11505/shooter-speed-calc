@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Shooter Speed Calculator",
+  title: "Launcher Speed Calculator",
   description: "Created and shrared by FTC Team 11505 The Flaming Galahs",
 };
 
